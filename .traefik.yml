@@ -1,0 +1,12 @@
+displayName: Dynamic transmute header
+
+type: middleware
+
+import: https://github.com/dariusandz/header-transmute
+
+summary: 'Dynamically transmute header value with provided mapping'
+
+testData:
+  FromHeader: "Some-Header"
+  ToHeader: "Some-Other-Header"
+  MappingEnvKey: "Environment-Variable-With-Header-Mapping"
