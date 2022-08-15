@@ -2,7 +2,7 @@ displayName: Dynamic transmute header
 
 type: middleware
 
-import: https://github.com/dariusandz/header-transmute
+import: github.com/dariusandz/header-transmute
 
 summary: 'Dynamically transmute header value with provided mapping'
 

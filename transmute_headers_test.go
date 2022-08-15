@@ -1,8 +1,9 @@
-package main
+package header_transmute_test
 
 import (
 	"context"
 	"fmt"
+	plugin "github.com/dariusandz/header-transmute"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
@@ -22,7 +23,7 @@ func TestHeadersTransmute(t *testing.T) {
 	os.Setenv(envKey, mapping)
 	defer os.Unsetenv(envKey)
 
-	cfg := &Config{
+	cfg := plugin.Config{
 		FromHeader:    headerToTransmuteFrom,
 		ToHeader:      headerToTransmuteTo,
 		MappingEnvKey: envKey,
@@ -31,7 +32,7 @@ func TestHeadersTransmute(t *testing.T) {
 	ctx := context.Background()
 	next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
 
-	handler, _ := New(ctx, next, cfg, "transmute-headers")
+	handler, _ := plugin.New(ctx, next, &cfg, "plugin-headers")
 	recorder := httptest.NewRecorder()
 
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, "http://localhost", nil)

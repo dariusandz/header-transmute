@@ -1,6 +1,7 @@
-package mapper
+package mapper_test
 
 import (
+	"github.com/dariusandz/header-transmute/pkg/mapper"
 	"github.com/dariusandz/header-transmute/pkg/types"
 	"github.com/stretchr/testify/assert"
 	"net/http"
@@ -26,7 +27,7 @@ func TestTransmuteHandler(t *testing.T) {
 	}
 
 	// when
-	Handle(recorder, req, rule)
+	mapper.Handle(recorder, req, rule)
 
 	// then
 	assert.Equal(t, "", req.Header.Get(headerToTransmuteFrom))
@@ -46,7 +47,7 @@ func TestTransmuteHandlerWithNoMapping(t *testing.T) {
 	}
 
 	// when
-	Handle(recorder, req, rule)
+	mapper.Handle(recorder, req, rule)
 
 	// then
 	assert.Equal(t, "", req.Header.Get(headerToTransmuteTo))

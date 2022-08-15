@@ -1,7 +1,8 @@
-package reader
+package reader_test
 
 import (
 	"fmt"
+	"github.com/dariusandz/header-transmute/pkg/reader"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -17,7 +18,7 @@ func TestMappingParser(t *testing.T) {
 	mapping := fmt.Sprintf("%s:%s\n%s:%s\n%s:%s", key1, value1, key2, value2, key3, value3)
 
 	// when
-	parsedMapping, _ := ParseHeaderMapping(mapping)
+	parsedMapping, _ := reader.ParseHeaderMapping(mapping)
 
 	// then
 	assert.Equal(t, parsedMapping[key1], value1)
@@ -27,7 +28,7 @@ func TestMappingParser(t *testing.T) {
 
 func TestMappingParserEmpty(t *testing.T) {
 	// when
-	parsedMapping, _ := ParseHeaderMapping("")
+	parsedMapping, _ := reader.ParseHeaderMapping("")
 
 	// expect
 	assert.Equal(t, map[string]string{}, parsedMapping)
@@ -38,7 +39,7 @@ func TestMappingParserInvalid(t *testing.T) {
 	mapping := fmt.Sprintf("%s|%s", "key1", "value1")
 
 	// when
-	_, err := ParseHeaderMapping(mapping)
+	_, err := reader.ParseHeaderMapping(mapping)
 
 	// then
 	assert.Error(t, err)
