@@ -1,7 +1,7 @@
 package mapper
 
 import (
-	"header-transmute/pkg/types"
+	"github.com/dariusandz/header-transmute/pkg/types"
 	"net/http"
 )
 

@@ -1,8 +1,8 @@
 package mapper
 
 import (
+	"github.com/dariusandz/header-transmute/pkg/types"
 	"github.com/stretchr/testify/assert"
-	"header-transmute/pkg/types"
 	"net/http"
 	"net/http/httptest"
 	"testing"

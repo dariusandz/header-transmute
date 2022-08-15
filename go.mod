@@ -1,4 +1,4 @@
-module header-transmute
+module github.com/dariusandz/header-transmute
 
 go 1.18
 

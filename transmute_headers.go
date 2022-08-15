@@ -5,9 +5,9 @@ package main
 import (
 	"context"
 	"fmt"
-	"header-transmute/pkg/mapper"
-	"header-transmute/pkg/reader"
-	"header-transmute/pkg/types"
+	"github.com/dariusandz/header-transmute/pkg/mapper"
+	"github.com/dariusandz/header-transmute/pkg/reader"
+	"github.com/dariusandz/header-transmute/pkg/types"
 	"net/http"
 	"os"
 )
