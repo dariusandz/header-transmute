@@ -37,19 +37,9 @@ curl <url> -H "X-Old-Header: value"
 ```
 deleting `X-Old-Header` header from request and appending `X-New-Header` header with value `newValue` to request.
 
-If value of configured header `FromHeader` is not mapped in environment variable `HeaderMapping`,
-plugin will not modify request.
-
-### Note
-If multiple header values exist, plugin will ignore them and lose these values retaining only newly mapped value, i.e.
-
-provided with same configuration as above, plugin will transmute request
-```text
-curl <url> -H "X-Old-Header: value" -H "X-Old-Header: otherValue"
-```
-deleting all `X-Old-Header` header's values from request and appending only `X-New-Header` header with value `newValue` to request.
+If header values mapping does not exist or there is no such mapping for header's value, 
+plugin will always transmute header from `FromHeader` to `ToHeader`.
 
 ### Improvements to be made
 * Support multiple headers to be transmuted
-* Retain multiple unmapped header values
 * Load configuration from k8s secret (when https://github.com/traefik/traefik/pull/9103 is released)

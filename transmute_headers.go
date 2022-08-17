@@ -43,11 +43,7 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 		return nil, fmt.Errorf("MappingEnvKey is not defined")
 	}
 
-	mapping, isPresent := os.LookupEnv(config.MappingEnvKey)
-	if !isPresent {
-		// Do not fail so validity test passes
-		//return nil, fmt.Errorf("could not extract mapping from env key %s", config.MappingEnvKey)
-	}
+	mapping := os.Getenv(config.MappingEnvKey)
 
 	parsedMapping, err := reader.ParseHeaderMapping(mapping)
 	if err != nil {

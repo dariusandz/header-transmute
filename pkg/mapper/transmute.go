@@ -11,13 +11,15 @@ func Handle(_ http.ResponseWriter, req *http.Request, rule types.Rule) {
 			continue
 		}
 
+		req.Header.Del(headerName)
+
 		for _, headerValue := range headerValues {
-			if _, mappingExists := rule.HeaderMapping[headerValue]; !mappingExists {
+			if _, mappingExists := rule.HeaderMapping[headerValue]; mappingExists {
+				req.Header.Add(rule.ToHeader, rule.HeaderMapping[headerValue])
 				continue
 			}
 
-			req.Header.Del(headerName)
-			req.Header.Set(rule.ToHeader, rule.HeaderMapping[headerValue])
+			req.Header.Add(rule.ToHeader, headerValue)
 		}
 	}
 }
