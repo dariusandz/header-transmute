@@ -9,10 +9,12 @@ import (
 	"testing"
 )
 
-const headerToTransmuteFrom = "Some-Header"
-const headerToTransmuteTo = "Some-Other-Header"
-const oldHeaderValue = "oldValue"
-const newHeaderValue = "newValue"
+const (
+	headerToTransmuteFrom = "Some-Header"
+	headerToTransmuteTo   = "Some-Other-Header"
+	oldHeaderValue        = "oldValue"
+	newHeaderValue        = "newValue"
+)
 
 func TestTransmuteHandler(t *testing.T) {
 	// given
@@ -38,7 +40,8 @@ func TestTransmuteHandlerWithMultipleValues(t *testing.T) {
 	// given
 	recorder := httptest.NewRecorder()
 	req, _ := http.NewRequest(http.MethodGet, "http://localhost", nil)
-	req.Header.Add(headerToTransmuteFrom, "otherValue")
+	const retainedValue = "retainedValue"
+	req.Header.Add(headerToTransmuteFrom, retainedValue)
 	req.Header.Add(headerToTransmuteFrom, oldHeaderValue)
 
 	rule := types.Rule{
@@ -52,8 +55,9 @@ func TestTransmuteHandlerWithMultipleValues(t *testing.T) {
 
 	// then
 	assert.Equal(t, 0, len(req.Header.Values(headerToTransmuteFrom)))
-	assert.Equal(t, 1, len(req.Header.Values(headerToTransmuteTo)))
-	assert.Equal(t, newHeaderValue, req.Header.Get(headerToTransmuteTo))
+	assert.Equal(t, 2, len(req.Header.Values(headerToTransmuteTo)))
+	assert.Contains(t, req.Header.Values(headerToTransmuteTo), retainedValue)
+	assert.Contains(t, req.Header.Values(headerToTransmuteTo), newHeaderValue)
 }
 
 func TestTransmuteHandlerWithNoMapping(t *testing.T) {
@@ -72,6 +76,7 @@ func TestTransmuteHandlerWithNoMapping(t *testing.T) {
 	mapper.Handle(recorder, req, rule)
 
 	// then
-	assert.Equal(t, 0, len(req.Header.Values(headerToTransmuteTo)))
-	assert.Equal(t, oldHeaderValue, req.Header.Get(headerToTransmuteFrom))
+	assert.Equal(t, 0, len(req.Header.Values(headerToTransmuteFrom)))
+	assert.Equal(t, 1, len(req.Header.Values(headerToTransmuteTo)))
+	assert.Equal(t, oldHeaderValue, req.Header.Get(headerToTransmuteTo))
 }
