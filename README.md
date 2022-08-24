@@ -1,4 +1,4 @@
-# Header transmutation plugin for traefik
+# Header transmutation plugin for traefik (DEPRECATED AND MOVED TO https://github.com/inventi/traefik-header-transmute)
 
 Plugin replaces header in request with value loaded from environment variable.
 
